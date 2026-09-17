@@ -1,0 +1,169 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-paper text-ink font-sans;
+    font-size: 16px;
+    line-height: 1.6;
+    font-weight: 400;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-sans text-ink;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.02;
+    text-wrap: balance;
+  }
+
+  ::selection {
+    @apply bg-ink text-paper;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-ink ring-offset-2 ring-offset-paper;
+    border-radius: 2px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #ebe7dd;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #ccc7ba;
+    border-radius: 99px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #9b9b94;
+  }
+}
+
+@layer components {
+  /* ---------------------------------------------------------- layout */
+  .shell {
+    @apply mx-auto w-full max-w-[1240px] px-5 sm:px-8;
+  }
+
+  .shell-narrow {
+    @apply mx-auto w-full max-w-[920px] px-5 sm:px-8;
+  }
+
+  .section {
+    @apply py-20 sm:py-24 lg:py-32;
+  }
+
+  /* Thin hairline rules do the section separation — no colour blocks. */
+  .rule {
+    @apply border-t border-hairline;
+  }
+
+  /* ------------------------------------------------------ typography */
+  .display {
+    font-weight: 800;
+    letter-spacing: -0.045em;
+    line-height: 0.96;
+  }
+
+  /* Letter-spaced technical micro-label. Used sparingly, as an accent. */
+  .micro {
+    @apply font-mono text-[10px] uppercase tracking-[0.2em] text-ink-muted;
+  }
+
+  .micro-ink {
+    @apply font-mono text-[10px] uppercase tracking-[0.2em] text-ink;
+  }
+
+  .lede {
+    @apply text-ink-muted;
+    font-size: 1.0625rem;
+    line-height: 1.65;
+  }
+
+  /* ---------------------------------------------------------- cards */
+  /* Flat, print-like: paper fill, 1px hairline, no blur, no heavy shadow. */
+  .card {
+    @apply rounded-xl border border-hairline bg-paper-raised;
+  }
+
+  .card-hover {
+    @apply transition-colors duration-300 hover:border-ink/25;
+  }
+
+  /* --------------------------------------------------------- buttons */
+  .pill {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-[14px] font-medium transition-all duration-300;
+  }
+
+  .pill-solid {
+    @apply pill bg-ink text-paper hover:bg-ink-soft;
+  }
+
+  .pill-outline {
+    @apply pill border border-ink bg-transparent text-ink hover:bg-ink hover:text-paper;
+  }
+
+  .pill-ghost {
+    @apply pill border border-hairline-strong bg-transparent text-ink hover:border-ink;
+  }
+
+  /* -------------------------------------------------------- textures */
+  /* Newsprint grain, applied once at the app root. */
+  .grain::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 60;
+    opacity: 0.4;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.42'/%3E%3C/svg%3E");
+  }
+
+  /* Faint halftone dot screen for panel backgrounds. */
+  .dotscreen {
+    background-image: radial-gradient(#111 0.9px, transparent 0.9px);
+    background-size: 6px 6px;
+    opacity: 0.06;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .tnum {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
